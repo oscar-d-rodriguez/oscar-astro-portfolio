@@ -1,10 +1,13 @@
 ---
 import astroLogo from '../assets/astro.svg';
 import background from '../assets/background.svg';
+const { data } = Astro.props;
+
 ---
 
 <div id="container">
-	<img id="background" src={background.src} alt="" fetchpriority="high" />
+	<h1>{data.siteInfo.title}</h1>
+	<!-- <img id="background" src={background.src} alt="" fetchpriority="high" />
 	<main>
 		<section id="hero">
 			<a href="https://astro.build"
@@ -38,7 +41,7 @@ import background from '../assets/background.svg';
 			From content layers to server islands, click to learn more about the new features and
 			improvements in Astro 5.0
 		</p>
-	</a>
+	</a> -->
 </div>
 
 <style>
