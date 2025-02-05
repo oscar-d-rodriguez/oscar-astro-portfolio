@@ -1,4 +1,5 @@
 ---
+import Navigation from '@components/Navigation/Navigation'
 import './layout.css'
 ---
 
@@ -10,17 +11,12 @@ import './layout.css'
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Oscar Castaneda - Portfolio</title>
+		<script src="../scripts/script.js"></script>
 	</head>
 	<body>
+		<Navigation client:load  />
 		<slot />
+		<div id="cursor" class="cursor-effect"></div>
+		<canvas id="canvas"></canvas>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

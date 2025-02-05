@@ -1,10 +1,54 @@
+html,
 body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+html {
+  cursor: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="20"%3E%3Crect x="9" y="0" width="2" height="20" fill="white" /%3E%3Crect x="0" y="9" width="20" height="2" fill="white" /%3E%3C/svg%3E')
+      10 10,
+    crosshair;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+  position: relative;
   background-color: black;
   color: white;
   padding: 50px;
   text-align: center;
-
   a {
     color: white;
   }
+}
+
+h1 {
+  color: white;
+  padding: 100px;
+  position: relative; /* Ensures text stays above the gradient circle */
+}
+
+.cursor-effect {
+  position: absolute;
+  pointer-events: none;
+  width: 1000px; /* Larger size for more impact */
+  height: 1000px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(35, 35, 35, 100) 0%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease-out;
+  z-index: -1;
+}
+
+canvas {
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

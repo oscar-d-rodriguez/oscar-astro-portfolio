@@ -1,0 +1,17 @@
+---
+export async function getStaticPaths() {
+
+  return [{
+    params: { projectId: 'test' },
+  }];
+}
+const { params } = Astro;
+const projectId = params.projectId;
+import Layout from '../../layouts/Layout.astro';
+
+---
+<Layout>
+
+    <h1>Project Page: {projectId}</h1>
+
+</Layout>
