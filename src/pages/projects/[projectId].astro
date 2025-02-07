@@ -1,17 +1,25 @@
 ---
+import Layout from "@layouts/Layout.astro";
 export async function getStaticPaths() {
+	console.log("enter getStaticPaths");
 
-  return [{
-    params: { projectId: 'test' },
-  }];
+	const projects = [
+		{ id: "ivr", name: "test" },
+		{ id: "portfolio", name: "test" },
+	];
+	return projects.map((project) => ({
+		params: { projectId: project.id },
+	}));
 }
-const { params } = Astro;
-const projectId = params.projectId;
-import Layout from '../../layouts/Layout.astro';
 
+const { projectId } = Astro.params;
+const response = await fetch(
+	`https://zz0l98xy6f.execute-api.us-east-2.amazonaws.com/dev/projects/${projectId}`,
+);
+const project = await response.json();
 ---
+
 <Layout>
-
-    <h1>Project Page: {projectId}</h1>
-
+	<h1>{project.name}</h1>
+	<p>{project.longDescription}</p>
 </Layout>

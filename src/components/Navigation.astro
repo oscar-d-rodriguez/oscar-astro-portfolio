@@ -1,0 +1,60 @@
+---
+import ocLogo from "@assets/oc.svg";
+---
+
+<nav>
+	<div class="nav">
+		<div class="nav__logo">
+			<a href="/" class="nav__logo">
+				<img src={ocLogo.src} />
+			</a>
+		</div>
+		<div class="nav__menu">
+			<a href="/projects/ivr" class="glowing-icon">About</a>
+			<a href="/projects/portfolio" class="glowing-icon">Projects</a>
+			<a href="/projects/portfolio" class="glowing-icon">Contact</a>
+		</div>
+	</div>
+</nav>
+
+<style>
+	nav {
+		position: fixed;
+		width: 100%;
+
+		.nav {
+			display: flex;
+			padding: 30px;
+			justify-content: space-between;
+			align-items: flex-start;
+			align-self: stretch;
+
+			&__menu {
+				display: flex;
+				justify-content: flex-end;
+				align-items: flex-start;
+				gap: 30px;
+				flex: 1 0 0;
+
+				a {
+					color: var(--Secondary, #e9ddce);
+					text-align: center;
+					font-family: Mulish;
+					font-size: 18px;
+					font-style: normal;
+					font-weight: 600;
+					line-height: normal;
+					text-decoration: none;
+					opacity: 0.5;
+					text-transform: uppercase;
+					transition: all 0.3s ease-in-out;
+
+					&:hover {
+						opacity: 1;
+						color: var(--Primary, #61dafb);
+					}
+				}
+			}
+		}
+	}
+</style>
