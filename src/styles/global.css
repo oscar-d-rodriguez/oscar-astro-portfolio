@@ -1,0 +1,19 @@
+@import "public/reset.css";
+@import "@styles/animations.css";
+@import "@styles/mixins.css";
+
+html {
+   cursor:
+      url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="20"%3E%3Crect x="9" y="0" width="2" height="20" fill="white" /%3E%3Crect x="0" y="9" width="20" height="2" fill="white" /%3E%3C/svg%3E')
+         10 10,
+      crosshair;
+}
+body {
+   margin: 0;
+   padding: 0;
+   font-family: "Mulish", serif;
+   font-optical-sizing: auto;
+   font-style: normal;
+   box-sizing: border-box;
+   background-color: black;
+}

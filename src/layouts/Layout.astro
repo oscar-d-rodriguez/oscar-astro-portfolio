@@ -3,73 +3,55 @@ import { ClientRouter } from "astro:transitions";
 import Navigation from "@components/Navigation.astro";
 import SocialNavigation from "@components/SocialNavigation.astro";
 
-import "@styles/reset.css";
-import "@styles/animations.css";
+import "@styles/global.css";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
-			rel="stylesheet"
-		/>
-		<meta name="generator" content={Astro.generator} />
-		<title>Oscar Castaneda - Portfolio</title>
-		<ClientRouter />
-		<script src="../scripts/script.js"></script>
-	</head>
-	<body>
-		<Navigation />
-		<SocialNavigation />
-		<slot />
-		<div id="cursor" class="cursor-effect"></div>
-		<canvas id="canvas" width="100%"></canvas>
-	</body><style>
-		html {
-			cursor:
-				url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="20"%3E%3Crect x="9" y="0" width="2" height="20" fill="white" /%3E%3Crect x="0" y="9" width="20" height="2" fill="white" /%3E%3C/svg%3E')
-					10 10,
-				crosshair;
-		}
-
-		body {
-			margin: 0;
-			padding: 0;
-			background-color: black;
-			font-family: "Mulish", serif;
-			font-optical-sizing: auto;
-			font-style: normal;
-			box-sizing: border-box;
-		}
-		.cursor-effect {
-			position: absolute;
-			pointer-events: none;
-			width: 1000px;
-			height: 1000px;
-			border-radius: 50%;
-			background: radial-gradient(
-				circle,
-				rgba(35, 35, 35, 100) 0%,
-				rgba(0, 0, 0, 0) 50%
-			);
-			transform: translate(-50%, -50%);
-			transition: all 0.2s ease-out;
-			z-index: -1;
-		}
-
-		canvas {
-			z-index: -2;
-			position: fixed;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-		}
-	</style>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width" />
+      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap"
+         rel="stylesheet"
+      />
+      <meta name="generator" content={Astro.generator} />
+      <title>Oscar Castaneda - Portfolio</title>
+      <ClientRouter />
+      <script src="/script.js" is:inline></script>
+   </head>
+   <body>
+      <Navigation />
+      <SocialNavigation />
+      <slot />
+      <div id="cursor" class="cursor-effect"></div>
+      <canvas id="canvas" width="100%"></canvas>
+   </body><style>
+      .cursor-effect {
+         position: absolute;
+         pointer-events: none;
+         width: 1000px;
+         height: 1000px;
+         border-radius: 50%;
+         background: radial-gradient(
+            circle,
+            rgba(35, 35, 35, 100) 0%,
+            rgba(0, 0, 0, 0) 50%
+         );
+         transform: translate(-50%, -50%);
+         transition: all 0.2s ease-out;
+         z-index: -1;
+      }
+      canvas {
+         z-index: -2;
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+      }
+   </style>
 </html>
