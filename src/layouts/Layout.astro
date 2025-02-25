@@ -10,6 +10,8 @@ import "@styles/global.css";
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +25,9 @@ import "@styles/global.css";
       <script src="/script.js" is:inline></script>
    </head>
    <body>
-      <Navigation client:load />
+      <div class="menu">
+         <Navigation client:load />
+      </div>
       <slot />
       <div id="cursor" class="cursor-effect"></div>
       <canvas id="canvas" width="100%"></canvas>
@@ -31,8 +35,8 @@ import "@styles/global.css";
       .cursor-effect {
          position: absolute;
          pointer-events: none;
-         width: 1000px;
-         height: 1000px;
+         width: 100%;
+         height: 100vh;
          border-radius: 50%;
          background: radial-gradient(
             circle,

@@ -20,3 +20,17 @@ body {
    box-sizing: border-box;
    background-color: black;
 }
+
+.tabletOnly {
+   display: none;
+   @mixin screen md {
+      display: block;
+   }
+}
+
+.mobileOnly {
+   display: block;
+   @mixin screen md {
+      display: none;
+   }
+}

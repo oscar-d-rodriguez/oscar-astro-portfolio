@@ -11,13 +11,22 @@ const { data } = Astro.props;
    </div>
 </section>
 <style>
+   @import "@styles/mixins.css";
+
    section {
-      width: 100%;
-      height: 100vh;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 30px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 100px;
+      align-self: stretch;
+      max-width: 1488px;
+
+      @mixin screen sm {
+         padding: 100px 120px;
+      }
    }
+
    h1 {
       font-family: Mulish;
       font-size: 26px;
@@ -40,14 +49,5 @@ const { data } = Astro.props;
          font-weight: 200;
          line-height: 55px;
       }
-   }
-   section {
-      display: flex;
-      padding: 100px 120px;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 100px;
-      align-self: stretch;
-      max-width: 1488px;
    }
 </style>

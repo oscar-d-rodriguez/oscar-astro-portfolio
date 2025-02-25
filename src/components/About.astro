@@ -40,24 +40,23 @@ const education = [
 
 <section id="about" class="about">
    <div class="about__banner">
-      <h1>About me</h1>
+      <h1 class="tabletOnly">About me</h1>
       <div class="about__banner-wrapper">
          <div class="about__banner-content">
             <p class="about__banner-text">
-               "I'm a creative <b>designer and front-end-focused developer</b>,
+               I'm a creative <b>designer and front-end-focused developer</b>,
                full-stack capable, from Monterrey, MX. I focus on building
                high-quality experiences from concept to implementation,
                prioritizing accessibility, aesthetics, performance, and
-               efficiency."
+               efficiency.
             </p>
             <p class="about__banner-small-text">
-               <small
-                  >When I'm not designing or developing products or websites,
-                  I'm constantly creating music. My favorite instrument is the
-                  electric guitar—check out one of my songs!</small
-               >
+               When I'm not designing or developing products or websites, I'm
+               constantly creating music. My favorite instrument is the electric
+               guitar—check out one of my songs!
             </p>
          </div>
+         <h1 class="mobileOnly">About me</h1>
          <div class="about__banner-photo">
             <img src={oscar.src} />
          </div>
@@ -110,17 +109,28 @@ const education = [
 </section>
 
 <style>
+   @import "@styles/mixins.css";
+
    .about {
       width: 100%;
       max-width: 1728px;
-      margin: 0 auto;
-      padding: 180px 140px;
+      margin: 0 auto 30%;
+      padding: 120px 30px;
       height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       color: #fff;
-      gap: 284px;
+      gap: 160px;
+
+      @mixin screen md {
+         padding: 180px 90px;
+      }
+
+      @mixin screen xl {
+         padding: 180px 140px;
+         gap: 284px;
+      }
 
       h1 {
          font-size: 26px;
@@ -137,8 +147,13 @@ const education = [
 
          &-wrapper {
             display: flex;
-            flex-direction: row;
-            gap: 114px;
+            flex-direction: column-reverse;
+            gap: 30px;
+
+            @mixin screen lg {
+               flex-direction: row;
+               gap: 114px;
+            }
          }
 
          &-content {
@@ -149,14 +164,25 @@ const education = [
 
          &-photo {
             & img {
-               max-width: 331px;
+               max-width: 271px;
+               margin: 0 auto;
+               display: block;
+
+               @mixin screen md {
+                  max-width: 331px;
+               }
             }
          }
          &-text {
-            font-size: 38px;
-            line-height: 55px;
+            font-size: 28px;
+            line-height: 40px;
             font-weight: 100;
             font-style: light;
+
+            @mixin screen md {
+               font-size: 38px;
+               line-height: 55px;
+            }
          }
 
          b {
@@ -164,15 +190,24 @@ const education = [
          }
 
          &-small-text {
-            font-size: 25px;
+            font-size: 20px;
             line-height: 36px;
             font-weight: 100;
+            @mixin screen md {
+               font-size: 25px;
+            }
          }
       }
 
       &__content {
          display: flex;
          gap: 120px;
+         flex-direction: column;
+
+         @mixin screen sm {
+            display: flex;
+            flex-direction: row;
+         }
 
          &-skills {
             max-width: 661px;
@@ -184,8 +219,13 @@ const education = [
                line-height: 48px;
                font-weight: 100;
                font-size: 25px;
+
+               @mixin screen sm {
+                  font-size: 20px;
+               }
             }
          }
+
          &-exp {
             display: flex;
             flex-direction: column;
@@ -207,10 +247,14 @@ const education = [
                   border-bottom: solid 1px #fff;
                   padding-bottom: 20px;
                   font-weight: 600;
-                  font-size: 25px;
+                  font-size: 18px;
                   display: flex;
                   flex-direction: column;
                   gap: 10px;
+
+                  @mixin screen sm {
+                     font-size: 25px;
+                  }
                }
 
                &-item-data {

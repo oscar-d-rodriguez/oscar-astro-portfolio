@@ -10,7 +10,7 @@
    &__wrapper {
       display: none;
 
-      @mixin screen sm {
+      @mixin screen md {
          display: block;
       }
    }
@@ -68,7 +68,7 @@
       top: 30px;
       cursor: pointer;
 
-      @mixin screen sm {
+      @mixin screen md {
          display: none;
       }
    }
