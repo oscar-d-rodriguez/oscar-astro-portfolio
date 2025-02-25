@@ -1,0 +1,53 @@
+---
+const { data } = Astro.props;
+---
+
+<section id="projects">
+   <div class="header">
+      <h1>PROJECTS</h1>
+      <p>
+         Some of the most recent projects I've had the pleasure of working on.
+      </p>
+   </div>
+</section>
+<style>
+   section {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+   h1 {
+      font-family: Mulish;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: 7.8px;
+      text-transform: uppercase;
+      display: block;
+   }
+   .header {
+      color: var(--Light, #fff);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      p {
+         font-family: Mulish;
+         font-size: 38px;
+         font-style: normal;
+         font-weight: 200;
+         line-height: 55px;
+      }
+   }
+   section {
+      display: flex;
+      padding: 100px 120px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 100px;
+      align-self: stretch;
+      max-width: 1488px;
+   }
+</style>

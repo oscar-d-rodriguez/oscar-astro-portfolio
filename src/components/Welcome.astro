@@ -1,9 +1,8 @@
 ---
 import oscarBanner from "../assets/oscar_castaneda.svg";
-const { data } = Astro.props;
 ---
 
-<section>
+<section id="home">
    <div>
       <img src={oscarBanner.src} />
       <hr />
@@ -15,12 +14,18 @@ const { data } = Astro.props;
 </section>
 
 <style>
+   @import "@styles/mixins.css";
    section {
-      width: 100%;
+      width: calc(100% - 60px);
+      margin: 0 auto;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      @mixin screen lg {
+         width: 100%;
+      }
    }
    p {
       color: #fff;

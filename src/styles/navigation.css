@@ -1,0 +1,152 @@
+@import "@styles/mixins.css";
+
+.nav {
+   position: fixed;
+   width: 100%;
+   display: flex;
+   padding: 30px;
+   justify-content: space-between;
+
+   &__wrapper {
+      display: none;
+
+      @mixin screen sm {
+         display: block;
+      }
+   }
+   &__logo {
+      z-index: 9;
+      & img {
+         filter: grayscale(100%) brightness(50%);
+         transition: all 0.3s ease-in-out;
+      }
+
+      &:hover,
+      &.active {
+         & img {
+            width: 35px;
+            margin: -1px;
+            filter: none;
+         }
+      }
+   }
+   &__menu {
+      display: flex;
+      gap: 30px;
+
+      a,
+      button {
+         background: none;
+         border: none;
+         transition: all 0.3s ease-in-out;
+         text-align: center;
+         font-family: Mulish;
+         font-style: normal;
+         line-height: normal;
+         text-decoration: none;
+         text-transform: uppercase;
+         color: var(--Secondary, #e9ddce);
+         font-size: 17px;
+         font-weight: 600;
+         opacity: 0.5;
+
+         &:hover,
+         &.active {
+            font-size: 18px;
+            opacity: 1;
+            color: var(--Primary, #61dafb);
+         }
+      }
+   }
+   &__mobile-button {
+      display: block;
+      background: none;
+      border: none;
+      position: fixed;
+      right: 30px;
+      top: 30px;
+      cursor: pointer;
+
+      @mixin screen sm {
+         display: none;
+      }
+   }
+   &__social {
+      bottom: 30px;
+      left: 30px;
+      gap: 10px;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+         gap: 20px;
+         img {
+            width: 30px;
+         }
+      }
+
+      img {
+         filter: grayscale(100%) brightness(50%);
+         width: 22px;
+         transition: all 0.3s ease-in-out;
+      }
+
+      &-listItem:hover {
+         img {
+            width: 38px;
+            filter: none;
+            margin-left: -3px;
+         }
+      }
+   }
+}
+.nav.open {
+   padding: 0;
+
+   & .nav {
+      &__logo {
+         margin: 30px;
+      }
+      &__wrapper {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         position: absolute;
+         width: 100%;
+         height: 100vh;
+         background: #000;
+      }
+      &__menu {
+         flex-direction: column;
+         margin-top: 50%;
+         align-items: center;
+         a,
+         button {
+            transition: none;
+            font-size: 24px;
+            font-weight: 300;
+
+            &:hover {
+               font-size: 24px;
+            }
+         }
+      }
+      &__social {
+         position: static;
+         flex-direction: row;
+         justify-content: space-between;
+         padding: 10%;
+         img {
+            width: 30px;
+         }
+         &:hover {
+            img {
+               width: 30px;
+               margin-left: 0;
+            }
+         }
+      }
+   }
+}

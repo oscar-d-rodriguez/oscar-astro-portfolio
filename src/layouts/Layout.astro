@@ -1,7 +1,6 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Navigation from "@components/Navigation.astro";
-import SocialNavigation from "@components/SocialNavigation.astro";
+import Navigation from "@components/Navigation";
 
 import "@styles/global.css";
 ---
@@ -24,8 +23,7 @@ import "@styles/global.css";
       <script src="/script.js" is:inline></script>
    </head>
    <body>
-      <Navigation />
-      <SocialNavigation />
+      <Navigation client:load />
       <slot />
       <div id="cursor" class="cursor-effect"></div>
       <canvas id="canvas" width="100%"></canvas>
