@@ -73,7 +73,7 @@ document.addEventListener("astro:page-load", () => {
 
    // Initialize gradient circles
    for (let i = 0; i < circleCount; i++) {
-      const radius = Math.random() * 1000 + 800; // Massive circle sizes (600px–1400px)
+      const radius = Math.random() * 1000 + 1000; // Massive circle sizes (600px–1400px)
       const x = Math.random() * width;
       const y = Math.random() * height;
       const dx = (Math.random() - 0.5) * 2;
