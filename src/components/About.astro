@@ -1,5 +1,23 @@
 ---
 import oscar from "../assets/oscar.png";
+import react from "../../public/toolstackIcons/icon-react.svg";
+import nextjs from "../../public/toolstackIcons/icon-nextjs.svg";
+import angular from "../../public/toolstackIcons/icon-angularjs.svg";
+import node from "../../public/toolstackIcons/icon-nodejs.svg";
+import storybook from "../../public/toolstackIcons/icon-storybook.svg";
+import amplify from "../../public/toolstackIcons/icon-amplify.svg";
+import materialui from "../../public/toolstackIcons/icon-materialui.svg";
+import vue from "../../public/toolstackIcons/icon-vuejs.svg";
+import wordpress from "../../public/toolstackIcons/icon-wordpress.svg";
+import photoshop from "../../public/toolstackIcons/icon-photoshop.svg";
+import figma from "../../public/toolstackIcons/icon-figma.svg";
+import github from "../../public/toolstackIcons/icon-github.svg";
+import sketch from "../../public/toolstackIcons/icon-sketch.svg";
+import afterEffects from "../../public/toolstackIcons/icon-afterEffects.svg";
+import inVision from "../../public/toolstackIcons/icon-inVision.svg";
+import premiere from "../../public/toolstackIcons/icon-premierepro.svg";
+import bitbucket from "../../public/toolstackIcons/icon-bitbucket.svg";
+import illustrator from "../../public/toolstackIcons/icon-illustrator.svg";
 
 const experience = [
    {
@@ -106,12 +124,36 @@ const education = [
          </div>
       </div>
    </div>
+   <div class="about__toolstack">
+      <h1>Tool stack</h1>
+      <div class="about__toolstack-grid">
+         <img src={react.src} />
+         <img src={nextjs.src} />
+         <img src={angular.src} />
+         <img src={node.src} />
+         <img src={storybook.src} />
+         <img src={amplify.src} />
+         <img src={materialui.src} />
+         <img src={vue.src} />
+         <img src={wordpress.src} />
+         <img src={photoshop.src} />
+         <img src={figma.src} />
+         <img src={github.src} />
+         <img src={sketch.src} />
+         <img src={afterEffects.src} />
+         <img src={inVision.src} />
+         <img src={premiere.src} />
+         <img src={bitbucket.src} />
+         <img src={illustrator.src} />
+      </div>
+   </div>
 </section>
 
 <style>
    @import "@styles/mixins.css";
 
    .about {
+      /* Global */
       width: 100%;
       max-width: 1728px;
       margin: 0 auto 30%;
@@ -131,7 +173,7 @@ const education = [
          padding: 180px 140px;
          gap: 284px;
       }
-
+      /* Global */
       h1 {
          font-size: 26px;
          font-weight: 600;
@@ -204,7 +246,7 @@ const education = [
          gap: 120px;
          flex-direction: column;
 
-         @mixin screen sm {
+         @mixin screen lg {
             display: flex;
             flex-direction: row;
          }
@@ -220,7 +262,7 @@ const education = [
                font-weight: 100;
                font-size: 25px;
 
-               @mixin screen sm {
+               @mixin screen lg {
                   font-size: 20px;
                }
             }
@@ -252,7 +294,7 @@ const education = [
                   flex-direction: column;
                   gap: 10px;
 
-                  @mixin screen sm {
+                  @mixin screen lg {
                      font-size: 25px;
                   }
                }
@@ -262,6 +304,31 @@ const education = [
                   justify-content: space-between;
                   font-weight: 100;
                }
+            }
+         }
+      }
+
+      &__toolstack {
+         &-grid {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 9 equal columns */
+            width: 100%;
+            gap: 60px 30px;
+            text-align: center;
+
+            @mixin screen md {
+               gap: 60px 90px;
+               grid-template-columns: repeat(4, 1fr); /* 9 equal columns */
+            }
+            @mixin screen lg {
+               grid-template-columns: repeat(5, 1fr); /* 9 equal columns */
+            }
+            @mixin screen xl {
+               grid-template-columns: repeat(6, 1fr); /* 9 equal columns */
+            }
+            @mixin screen xxl {
+               grid-template-columns: repeat(9, 1fr); /* 9 equal columns */
             }
          }
       }

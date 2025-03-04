@@ -3,6 +3,7 @@
 @custom-media --bp-md (min-width: 768px);
 @custom-media --bp-lg (min-width: 1024px);
 @custom-media --bp-xl (min-width: 1280px);
+@custom-media --bp-xxl (min-width: 1700px);
 
 @define-mixin screen $size {
    @media (--bp-$(size)) {

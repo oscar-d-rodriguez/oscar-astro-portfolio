@@ -1,33 +1,64 @@
 ---
+import Carousel from "./Carosuel";
+
 const { data } = Astro.props;
 ---
 
-<section id="projects">
-   <div class="header">
+<section id="projects" class="projects">
+   <div class="projects__banner">
       <h1>PROJECTS</h1>
-      <p>
+      <!-- <p class="projects__banner-text">
          Some of the most recent projects I've had the pleasure of working on.
-      </p>
+      </p> -->
    </div>
+   <Carousel client:only="react" />
 </section>
 <style>
    @import "@styles/mixins.css";
-
-   section {
+   .projects {
+      /* Global */
+      width: 100%;
+      max-width: 1728px;
+      margin: 0 auto 30%;
+      padding: 120px 30px;
+      height: auto;
       display: flex;
-      padding: 30px;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 100px;
-      align-self: stretch;
-      max-width: 1488px;
+      justify-content: center;
+      color: #fff;
 
-      @mixin screen sm {
-         padding: 100px 120px;
+      @mixin screen md {
+         padding: 100px 90px;
+      }
+
+      @mixin screen xl {
+         padding: 100px 140px;
+         /* gap: 284px; */
+      }
+
+      &__banner {
+         color: var(--Light, #fff);
+         display: flex;
+         flex-direction: column;
+         gap: 20px;
+         padding: 0 200px;
+
+         &-text {
+            font-size: 28px;
+            line-height: 40px;
+            font-weight: 100;
+            font-style: light;
+
+            @mixin screen md {
+               font-size: 22px;
+               line-height: 55px;
+            }
+         }
       }
    }
 
    h1 {
+      /* Global */
       font-family: Mulish;
       font-size: 26px;
       font-style: normal;
@@ -36,18 +67,5 @@ const { data } = Astro.props;
       letter-spacing: 7.8px;
       text-transform: uppercase;
       display: block;
-   }
-   .header {
-      color: var(--Light, #fff);
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      p {
-         font-family: Mulish;
-         font-size: 38px;
-         font-style: normal;
-         font-weight: 200;
-         line-height: 55px;
-      }
    }
 </style>

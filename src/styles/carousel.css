@@ -1,0 +1,67 @@
+.carousel {
+   width: 100%;
+   max-width: 1200px;
+   margin: 10px auto;
+
+   .swiper {
+      width: 100%;
+      height: 100%;
+      padding-right: 80px;
+      padding-left: 80px;
+   }
+
+   .swiper-slide {
+      font-size: 18px;
+      color: #fff;
+      overflow: visible;
+      display: flex;
+      justify-content: left;
+      flex-direction: column;
+
+      img {
+         display: block;
+         width: 100%;
+         margin: 0 auto 0;
+      }
+   }
+
+   &__content {
+      justify-content: space-between;
+      padding: 20px 40px;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+   }
+
+   &__projectName {
+      position: absolute;
+      left: -80px;
+      font-size: 118px;
+      font-weight: 800;
+      top: 60%;
+   }
+
+   &__tags {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+   }
+
+   &__contributions {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 100;
+      display: none;
+   }
+
+   &__contributions-wrapper {
+      display: flex;
+      justify-content: flex-end;
+   }
+
+   &__headline {
+      font-weight: 100;
+      width: 400px;
+      line-height: 28px;
+   }
+}

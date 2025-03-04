@@ -17,7 +17,8 @@
       "postcss-load-config": "^6.0.1",
       "postcss-mixins": "^11.0.3",
       "react": "^19.0.0",
-      "react-dom": "^19.0.0"
+      "react-dom": "^19.0.0",
+      "swiper": "^11.2.4"
    },
    "devDependencies": {
       "postcss-nested": "^7.0.2",

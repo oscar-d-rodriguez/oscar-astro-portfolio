@@ -17,13 +17,15 @@ import oscarBanner from "../assets/oscar_castaneda.svg";
    @import "@styles/mixins.css";
    section {
       width: calc(100% - 60px);
-      margin: 0 auto 30%;
+      margin: 0 auto;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
 
       @mixin screen sm {
+         margin: 0 auto 30%;
+
          width: calc(100% - 160px);
       }
       @mixin screen lg {
