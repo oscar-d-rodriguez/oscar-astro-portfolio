@@ -18,6 +18,7 @@ const navItems = [
 export default function Navigation() {
    const [isOpen, setIsOpen] = useState(false);
    const [activeSection, setActiveSection] = useState("");
+   const [firstLoad, setFirstLoad] = useState(true);
 
    const handleMobileButtonClick = () => {
       setIsOpen(!isOpen);
@@ -68,6 +69,13 @@ export default function Navigation() {
          window.addEventListener("resize", handleResize);
       };
    }, [handleResize]);
+
+   useEffect(() => {
+      if (firstLoad) {
+         window.scrollTo(0, 0);
+         setFirstLoad(false);
+      }
+   });
 
    return (
       <nav className={`nav ${isOpen ? "open" : ""}`}>

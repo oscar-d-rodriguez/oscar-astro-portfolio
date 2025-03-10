@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Tag } from "@components/Tag";
@@ -103,7 +103,7 @@ export default function Carousel() {
             className="carousel"
          >
             {projectsData.map((item, i) => (
-               <>
+               <React.Fragment key={i}>
                   <SwiperSlide key={i}>
                      <h2 className="carousel__projectName">{item.name}</h2>
                      <img
@@ -127,7 +127,7 @@ export default function Carousel() {
                         </div>
                      </div>
                   </SwiperSlide>
-               </>
+               </React.Fragment>
             ))}
          </Swiper>
       </div>
