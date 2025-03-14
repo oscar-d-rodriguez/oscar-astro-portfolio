@@ -6,7 +6,7 @@ const { data } = Astro.props;
 
 <section id="projects" class="projects">
    <div class="projects__banner">
-      <h1>PROJECTS</h1>
+      <!-- <h1>PROJECTS</h1> -->
       <!-- <p class="projects__banner-text">
          Some of the most recent projects I've had the pleasure of working on.
       </p> -->
@@ -19,21 +19,25 @@ const { data } = Astro.props;
       /* Global */
       width: 100%;
       max-width: 1728px;
-      margin: 0 auto 15%;
-      padding: 120px 30px;
+      /* margin: 0 auto 15%; */
+      padding: 0;
       height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       color: #fff;
+      height: 100vh;
 
       @mixin screen md {
-         padding: 100px 90px;
+         padding: 0;
       }
 
       @mixin screen xl {
-         padding: 100px 140px;
-         /* gap: 284px; */
+         padding: 0 100px;
+      }
+
+      @mixin screen xxl {
+         padding: 0 140px;
       }
 
       &__banner {
@@ -41,7 +45,7 @@ const { data } = Astro.props;
          display: flex;
          flex-direction: column;
          gap: 20px;
-         padding: 0 200px;
+         padding: 0;
 
          &-text {
             font-size: 28px;

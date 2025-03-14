@@ -7,4 +7,5 @@
    display: inline-block;
    height: 27px;
    border: solid 1px rgba(100, 100, 100, 0.5);
+   min-width: 120px;
 }

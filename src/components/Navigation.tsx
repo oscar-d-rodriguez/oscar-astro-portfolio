@@ -19,6 +19,7 @@ export default function Navigation() {
    const [isOpen, setIsOpen] = useState(false);
    const [activeSection, setActiveSection] = useState("");
    const [firstLoad, setFirstLoad] = useState(true);
+   const [isScrolled, setIsScrolled] = useState(false);
 
    const handleMobileButtonClick = () => {
       setIsOpen(!isOpen);
@@ -38,7 +39,12 @@ export default function Navigation() {
    };
 
    useEffect(() => {
+      const handleScroll = () => {
+         setIsScrolled(window.scrollY > 0);
+      };
+
       const updateActiveSection = () => {
+         handleScroll();
          const scrollPosition = window.scrollY;
 
          for (const item of navItems) {
@@ -78,7 +84,9 @@ export default function Navigation() {
    });
 
    return (
-      <nav className={`nav ${isOpen ? "open" : ""}`}>
+      <nav
+         className={`nav ${isOpen ? "open" : ""} ${isScrolled ? "isScrolled" : ""}`}
+      >
          <div
             className={`nav__logo ${activeSection === "home" ? "active" : ""}`}
          >

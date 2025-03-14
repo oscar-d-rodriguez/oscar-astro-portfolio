@@ -1,0 +1,15 @@
+.button {
+   background: none;
+   border: solid 1px var(--Primary, #61dafb);
+   font-size: 18px;
+   color: var(--Primary, #61dafb);
+   text-transform: uppercase;
+   border-radius: 64px;
+   padding: 16px 30px;
+
+   &.secondary {
+      border: none;
+      text-transform: none;
+      font-weight: 100;
+   }
+}

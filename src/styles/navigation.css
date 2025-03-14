@@ -6,12 +6,14 @@
    display: flex;
    padding: 30px;
    justify-content: space-between;
+   /* transition: all 0.3s ease-in-out; */
+   z-index: 999;
 
    &__wrapper {
       display: none;
 
       @mixin screen md {
-         display: block;
+         display: flex;
       }
    }
    &__logo {
@@ -33,6 +35,7 @@
    &__menu {
       display: flex;
       gap: 30px;
+      align-items: center;
 
       a,
       button {
@@ -100,6 +103,31 @@
             margin-left: -3px;
          }
       }
+   }
+   &.isScrolled {
+      background: rgba(0, 0, 0); /* 50% opacity */
+      padding: 15px 30px;
+      @mixin screen sm {
+         background: rgba(0, 0, 0, 0.8); /* 50% opacity */
+
+         padding: 30px;
+      }
+      /* padding: 15px 30px;
+      & .nav__menu {
+         a,
+         button {
+            font-size: 12px;
+         }
+      }
+      &:hover {
+         padding: 30px;
+         & .nav__menu {
+            a,
+            button {
+               font-size: 18px;
+            }
+         }
+      } */
    }
 }
 .nav.open {
