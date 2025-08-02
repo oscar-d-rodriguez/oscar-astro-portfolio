@@ -1,4 +1,11 @@
-const menuItems = [
+export const navItems = [
+   { name: "Home", id: "home", hide: true },
+   { name: "About", id: "about" },
+   { name: "Projects", id: "projects" },
+   { name: "Contact", id: "contact" },
+];
+
+export const socialMenuItems = [
    {
       label: "linkedin-icon",
       href: "https://www.linkedin.com/in/oscar-casta%C3%B1eda-5a0a0244/",
@@ -25,21 +32,3 @@ const menuItems = [
       icon: "/socialIcons/behance.svg",
    },
 ];
-
-export const SocialNavigation: React.FC = () => {
-   return (
-      <ul className="nav__social">
-         {menuItems.map((item, i) => (
-            <li key={i} className="nav__social-listItem">
-               <a href={item.href} target="_blank">
-                  <img
-                     src={item.icon}
-                     alt={item.label}
-                     className="menu-icon glowing-icon"
-                  />
-               </a>
-            </li>
-         ))}
-      </ul>
-   );
-};

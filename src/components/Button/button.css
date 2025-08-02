@@ -6,10 +6,16 @@
    text-transform: uppercase;
    border-radius: 64px;
    padding: 16px 30px;
+   text-decoration: none;
 
    &.secondary {
       border: none;
       text-transform: none;
       font-weight: 100;
+      padding: 0;
+   }
+
+   &:hover {
+      cursor: pointer;
    }
 }

@@ -1,0 +1,116 @@
+.grid {
+   display: grid;
+   gap: 3rem;
+
+   &-row-0 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+   }
+   &-row-1 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+   }
+   &-row-2 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+   }
+   &-row {
+      margin-bottom: 1rem;
+   }
+}
+
+/* CARD STYLES */
+.grid-card {
+   display: block;
+   color: #fff;
+   text-decoration: none;
+   overflow: visible;
+   position: relative;
+   min-height: 0;
+
+   &:hover {
+      z-index: 2;
+   }
+
+   .img-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+   }
+
+   /* IMAGES */
+   .default-img,
+   .hover-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 0;
+      z-index: 1;
+      transition:
+         opacity 0.35s ease-in-out,
+         transform 0.45s ease-in-out;
+   }
+
+   .default-img {
+      opacity: 1;
+      z-index: 1;
+      transform: scale(1);
+   }
+   .hover-img {
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+      transform: scale(1);
+   }
+
+   &:hover {
+      .default-img {
+         opacity: 0;
+         transform: scale(1.12);
+      }
+      .hover-img {
+         opacity: 1;
+         transform: scale(1.12);
+      }
+   }
+
+   p {
+      margin: 0.7rem 1rem 0.7rem 1rem;
+      font-size: 1rem;
+      opacity: 0.5;
+      transition: opacity 0.3s ease-in-out;
+   }
+
+   h3 {
+      margin: 0.7rem 1rem 0.7rem 1rem;
+      font-size: 1.4rem;
+      opacity: 0.5;
+      font-weight: 600;
+      transition: opacity 0.3s ease-in-out;
+   }
+
+   &:hover p,
+   &:hover h3 {
+      opacity: 1;
+   }
+}
+
+@media (max-width: 768px) {
+   .grid-row-0,
+   .grid-row-1,
+   .grid-row-2 {
+      grid-template-columns: 1fr !important;
+   }
+}

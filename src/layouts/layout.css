@@ -1,0 +1,52 @@
+@import "@styles/reset.css";
+@import "@styles/animations.css";
+@import "@styles/mixins.css";
+@import "@styles/global.css";
+
+* {
+   box-sizing: border-box;
+}
+
+html {
+   cursor:
+      url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="20" height="20"%3E%3Crect x="9" y="0" width="2" height="20" fill="white" /%3E%3Crect x="0" y="9" width="20" height="2" fill="white" /%3E%3C/svg%3E')
+         10 10,
+      crosshair;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+   font-family: "Mulish", serif;
+   font-optical-sizing: auto;
+   font-style: normal;
+   box-sizing: border-box;
+   background-color: #1f2228;
+   background-image: url("../../dist/back.jpg");
+   background-size: cover; /* Ensures the image covers the entire area */
+   background-repeat: no-repeat; /* Prevents repeating */
+   background-position: top; /* Centers the image */
+   background-attachment: fixed; /* Makes the background stay fixed while scrolling */
+}
+
+canvas {
+   z-index: -2;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   opacity: 1;
+}
+
+.layout {
+   max-width: 1440px;
+   margin: 0 auto;
+   position: relative;
+}
+
+footer {
+   color: #fff;
+   text-align: right;
+   padding: 30px;
+}

@@ -1,0 +1,22 @@
+---
+import { Carousel } from "../Carousel/Carosuel";
+import { Grid } from "../Grid/Grid";
+
+import "./projects.css";
+
+const allProjects = await fetch(
+   `https://zz0l98xy6f.execute-api.us-east-2.amazonaws.com/dev/projects`,
+);
+const projectsData = await allProjects.json();
+---
+
+<section id="projects" class="projects">
+   <div class="projects__banner">
+      <h1>PROJECTS</h1>
+      <p class="projects__banner-text">
+         Some of the most recent projects I've had the pleasure of working on.
+      </p>
+   </div>
+   <Grid client:only="react" data={projectsData} />
+   <!-- <Carousel client:only="react" data={projectsData} /> -->
+</section>

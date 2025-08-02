@@ -1,8 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Navigation from "@components/Navigation";
-
-import "@styles/global.css";
+import Navigation from "@components/Navigation/Navigation";
+import { SocialNavigation } from "../components/SocialNavigation/SocialNavigation";
+import "./layout.css";
 ---
 
 <!doctype html>
@@ -11,7 +11,6 @@ import "@styles/global.css";
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,20 +24,11 @@ import "@styles/global.css";
       <script src="/script.js" is:inline></script>
    </head>
    <body>
-      <div class="menu">
+      <div class="layout">
          <Navigation client:load />
+         <slot />
       </div>
-      <slot />
       <div id="cursor" class="cursor-effect"></div>
       <canvas id="canvas" width="100%"></canvas>
-   </body><style>
-      canvas {
-         z-index: -2;
-         position: fixed;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-      }
-   </style>
+   </body>
 </html>

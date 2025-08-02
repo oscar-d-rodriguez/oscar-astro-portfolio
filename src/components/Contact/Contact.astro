@@ -1,0 +1,24 @@
+---
+import { SocialNavigation } from "@components/SocialNavigation/SocialNavigation";
+import Button from "../Button/Button";
+import "./contact.css";
+---
+
+<section id="contact" class="contact">
+   <h1>Contact</h1>
+   <p>Interested in working together?</p>
+   <Button
+      client:only="react"
+      label="Drop me an email!"
+      url="mailto:ocasta06@gmail.com"
+   />
+   <Button
+      client:only="react"
+      label="Download resume"
+      url="../../../public/OscarCastanedaResume.docx"
+      variant="secondary"
+   />
+   <div class="contact__social-nav">
+      <SocialNavigation client:load />
+   </div>
+</section>

@@ -1,0 +1,54 @@
+@import "@styles/mixins.css";
+
+.welcome {
+   width: calc(100% - 60px);
+   margin: 0 auto;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   @mixin screen sm {
+      margin: 0 auto 10%;
+      width: calc(100% - 160px);
+   }
+
+   @mixin screen lg {
+      width: 100%;
+   }
+
+   &__text {
+      color: #fff;
+      width: 100%;
+      text-align: right;
+   }
+
+   &__image {
+      max-width: 851px;
+      width: 100%;
+   }
+
+   &__container {
+      display: flex;
+      flex-direction: row;
+   }
+
+   hr {
+      background: #fff;
+      height: 1px;
+      border: none;
+      display: block;
+      margin: 20px 0;
+   }
+
+   & .nav__social {
+      & img {
+         width: 30px;
+         margin-left: 0;
+      }
+      & a:hover img {
+         width: 40px;
+         margin-top: -10px;
+      }
+   }
+}

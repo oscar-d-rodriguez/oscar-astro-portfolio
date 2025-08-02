@@ -3,11 +3,18 @@
 .nav {
    position: fixed;
    width: 100%;
+   max-width: 1440px;
    display: flex;
-   padding: 30px;
+   padding: 15px;
    justify-content: space-between;
-   /* transition: all 0.3s ease-in-out; */
    z-index: 999;
+   top: 0;
+   animation: hideThenShow2 0.5s ease-in-out forwards;
+
+   @mixin screen md {
+      padding: 30px;
+      transition: all 0.5s ease-in-out;
+   }
 
    &__wrapper {
       display: none;
@@ -16,6 +23,7 @@
          display: flex;
       }
    }
+
    &__logo {
       z-index: 9;
       & img {
@@ -32,6 +40,7 @@
          }
       }
    }
+
    &__menu {
       display: flex;
       gap: 30px;
@@ -55,88 +64,49 @@
 
          &:hover,
          &.active {
-            font-size: 18px;
             opacity: 1;
             color: var(--Primary, #61dafb);
          }
       }
    }
+
    &__mobile-button {
       display: block;
       background: none;
       border: none;
       position: fixed;
-      right: 30px;
-      top: 30px;
+      right: 15px;
+      top: 15px;
       cursor: pointer;
 
       @mixin screen md {
          display: none;
       }
    }
-   &__social {
-      bottom: 30px;
-      left: 30px;
-      gap: 10px;
-      position: fixed;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease-in-out;
 
-      &:hover {
-         gap: 20px;
-         img {
-            width: 30px;
-         }
-      }
-
-      img {
-         filter: grayscale(100%) brightness(50%);
-         width: 22px;
-         transition: all 0.3s ease-in-out;
-      }
-
-      &-listItem:hover {
-         img {
-            width: 38px;
-            filter: none;
-            margin-left: -3px;
-         }
-      }
-   }
    &.isScrolled {
-      background: rgba(0, 0, 0); /* 50% opacity */
-      padding: 15px 30px;
-      @mixin screen sm {
-         background: rgba(0, 0, 0, 0.8); /* 50% opacity */
+      /* background: rgba(0, 0, 0, 0.5); */
+      width: 100%;
+      max-width: 100%;
+      /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+      padding: 10px;
+      animation: hideThenShow 0.5s ease-in-out forwards;
 
-         padding: 30px;
+      @mixin screen sm {
+         padding: 10px 30px;
       }
-      /* padding: 15px 30px;
-      & .nav__menu {
-         a,
-         button {
-            font-size: 12px;
-         }
-      }
-      &:hover {
-         padding: 30px;
-         & .nav__menu {
-            a,
-            button {
-               font-size: 18px;
-            }
-         }
-      } */
    }
 }
+
 .nav.open {
    padding: 0;
+   animation: hideThenShow 0.5s ease-in-out forwards;
 
    & .nav {
       &__logo {
          margin: 30px;
       }
+
       &__wrapper {
          display: flex;
          flex-direction: column;
@@ -146,6 +116,7 @@
          height: 100vh;
          background: #000;
       }
+
       &__menu {
          flex-direction: column;
          margin-top: 50%;
@@ -158,21 +129,6 @@
 
             &:hover {
                font-size: 24px;
-            }
-         }
-      }
-      &__social {
-         position: static;
-         flex-direction: row;
-         justify-content: space-between;
-         padding: 10%;
-         img {
-            width: 30px;
-         }
-         &:hover {
-            img {
-               width: 30px;
-               margin-left: 0;
             }
          }
       }

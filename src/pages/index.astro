@@ -1,8 +1,8 @@
 ---
-import Welcome from "@components/Welcome.astro";
-import About from "@components/About.astro";
-import Projects from "@components/Projects.astro";
-import Contact from "@components/Contact.astro";
+import Welcome from "@components/Welcome/Welcome.astro";
+import About from "@components/About/About.astro";
+import Projects from "@components/Projects/Projects.astro";
+import Contact from "@components/Contact/Contact.astro";
 import Layout from "@layouts/Layout.astro";
 
 const response = await fetch(
@@ -14,6 +14,6 @@ const data = await response.json();
 <Layout>
    <Welcome data={data} />
    <About data={data} />
-   <Projects data={data} />
+   <Projects />
    <Contact data={data} />
 </Layout>

@@ -1,20 +1,4 @@
 document.addEventListener("astro:page-load", () => {
-   // const cursor = document.getElementById("cursor");
-
-   // // Track mouse position
-   // let mouseX = 0;
-   // let mouseY = 0;
-
-   // // Update mouse position on mousemove
-   // document.addEventListener("mousemove", (event) => {
-   //    mouseX = event.clientX;
-   //    mouseY = event.clientY;
-
-   //    // Update cursor circle position
-   //    cursor.style.left = `${mouseX}px`;
-   //    cursor.style.top = `${mouseY}px`;
-   // });
-
    const canvas = document.getElementById("canvas");
    const ctx = canvas.getContext("2d");
 
@@ -24,8 +8,8 @@ document.addEventListener("astro:page-load", () => {
 
    // Configuration for gradient circles
    const gradientCircles = [];
-   const circleCount = 8;
-   const colorPalette = ["#000000", "#111111", "#222222", "#333333"];
+   const circleCount = 50;
+   const colorPalette = ["#337394"];
 
    class GradientCircle {
       constructor(x, y, radius, dx, dy, color) {
@@ -47,7 +31,7 @@ document.addEventListener("astro:page-load", () => {
             this.radius,
          );
          gradient.addColorStop(0, this.color);
-         gradient.addColorStop(0.9, "transparent");
+         gradient.addColorStop(1, "rgba(51, 115, 148, 0)");
 
          ctx.beginPath();
          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -73,11 +57,11 @@ document.addEventListener("astro:page-load", () => {
 
    // Initialize gradient circles
    for (let i = 0; i < circleCount; i++) {
-      const radius = Math.random() * 1000 + 1000; // Massive circle sizes (600px–1400px)
+      const radius = Math.random() * 2 + 2; // Massive circle sizes (600px–1400px)
       const x = Math.random() * width;
       const y = Math.random() * height;
-      const dx = (Math.random() - 0.5) * 2;
-      const dy = (Math.random() - 0.5) * 2;
+      const dx = (Math.random() - 0.5) * 0.5;
+      const dy = (Math.random() - 0.5) * 0.5;
       const color =
          colorPalette[Math.floor(Math.random() * colorPalette.length)];
 

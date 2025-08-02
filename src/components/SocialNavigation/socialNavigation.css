@@ -1,0 +1,62 @@
+@import "@styles/mixins.css";
+
+.nav__social {
+   gap: 20px;
+   flex-direction: row;
+   animation: hideThenShow 0.5s ease-in-out forwards;
+   display: none;
+
+   @mixin screen md {
+      display: flex;
+   }
+
+   &:hover {
+      gap: 20px;
+      img {
+         width: 30px;
+      }
+   }
+
+   img {
+      filter: grayscale(100%) brightness(100%);
+      width: 22px;
+      transition: all 0.3s ease-in-out;
+   }
+
+   &-listItem:hover {
+      img {
+         width: 38px;
+         filter: none;
+         margin-left: -3px;
+      }
+   }
+
+   &.isScrolled {
+      position: fixed;
+      flex-direction: column;
+      left: 30px;
+      animation: hideThenShowSocialMenu 0.5s ease-in-out forwards;
+      bottom: 30px;
+   }
+}
+
+.nav.open {
+   & .nav__social {
+      display: flex;
+      position: static;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 10%;
+
+      img {
+         width: 30px;
+      }
+
+      &:hover {
+         img {
+            width: 30px;
+            margin-left: 0;
+         }
+      }
+   }
+}

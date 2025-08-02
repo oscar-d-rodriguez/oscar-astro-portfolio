@@ -1,0 +1,19 @@
+---
+import oscarBanner from "../../assets/oscar_castaneda.svg";
+import { SocialNavigation } from "../SocialNavigation/SocialNavigation";
+import "./welcome.css";
+---
+
+<section id="home" class="welcome">
+   <div>
+      <img src={oscarBanner.src} class="welcome__image" />
+      <hr />
+      <div class="welcome__container">
+         <SocialNavigation client:load />
+         <p class="welcome__text">
+            CREATING EXPERIENCES <br />
+            SINCE 2010
+         </p>
+      </div>
+   </div>
+</section>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "@styles/tag.css";
+import "./tag.css";
 
 interface TagProps {
    tag: string;

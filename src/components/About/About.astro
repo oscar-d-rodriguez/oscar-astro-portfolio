@@ -1,0 +1,157 @@
+---
+import oscar from "../../assets/oscar.png";
+import react from "../../../public/toolstackIcons/icon-react.svg";
+import nextjs from "../../../public/toolstackIcons/icon-nextjs.svg";
+import angular from "../../../public/toolstackIcons/icon-angularjs.svg";
+import node from "../../../public/toolstackIcons/icon-nodejs.svg";
+import storybook from "../../../public/toolstackIcons/icon-storybook.svg";
+import amplify from "../../../public/toolstackIcons/icon-amplify.svg";
+import materialui from "../../../public/toolstackIcons/icon-materialui.svg";
+import vue from "../../../public/toolstackIcons/icon-vuejs.svg";
+import wordpress from "../../../public/toolstackIcons/icon-wordpress.svg";
+import photoshop from "../../../public/toolstackIcons/icon-photoshop.svg";
+import figma from "../../../public/toolstackIcons/icon-figma.svg";
+import github from "../../../public/toolstackIcons/icon-github.svg";
+import sketch from "../../../public/toolstackIcons/icon-sketch.svg";
+import afterEffects from "../../../public/toolstackIcons/icon-aftereffects.svg";
+import inVision from "../../../public/toolstackIcons/icon-invision.svg";
+import premiere from "../../../public/toolstackIcons/icon-premierepro.svg";
+import bitbucket from "../../../public/toolstackIcons/icon-bitbucket.svg";
+import illustrator from "../../../public/toolstackIcons/icon-illustrator.svg";
+
+import "./about.css";
+
+const experience = [
+   {
+      title: "Technology Consultant",
+      employer: "Slalom",
+      date: "Feb 2019 - Pres",
+   },
+   {
+      title: "Lead Front-End Developer",
+      employer: "Accenture",
+      date: "July 2015 - Jan 2019",
+   },
+   {
+      title: "UX/UI Engineer",
+      employer: "Avanade",
+      date: "Abr 2013 - Jun 2015",
+   },
+   {
+      title: "Webmaster",
+      employer: "Tec de Monterrey",
+      date: "Jan 2010 - Mar 2013",
+   },
+];
+
+const education = [
+   {
+      title: "MBA",
+      employer: "Tec de Monterrey",
+      date: "2011 - 2013",
+   },
+   {
+      title: "GRAPHIC DESIGN",
+      employer: "UMM, MX",
+      date: "2007 - 2010",
+   },
+];
+---
+
+<section id="about" class="about">
+   <div class="about__banner">
+      <h1 class="tabletOnly">About me</h1>
+      <div class="about__banner-wrapper">
+         <div class="about__banner-content">
+            <p class="about__banner-text">
+               I'm a creative <b>designer and front-end-focused developer</b>,
+               full-stack capable, from Monterrey, MX. I focus on building
+               high-quality experiences from concept to implementation,
+               prioritizing accessibility, aesthetics, performance, and
+               efficiency.
+            </p>
+            <p class="about__banner-small-text">
+               When I'm not designing or developing digital products and
+               websites, I enjoy spending time with my family on outings. I'm
+               also a musician who is constantly creating new music. My favorite
+               instrument is the electric guitar—feel free to check out one of
+               my original tracks <a
+                  href="https://www.youtube.com/watch?v=N7c4xn92L5c"
+                  target="_blank">here</a
+               >
+            </p>
+         </div>
+         <h1 class="mobileOnly">About me</h1>
+         <div class="about__banner-photo">
+            <img src={oscar.src} />
+         </div>
+      </div>
+   </div>
+   <div class="about__content">
+      <div class="about__content-skills">
+         <h1>Skills</h1>
+         <p class="about__content-skills-text">
+            HTML5 / CSS3 / JavaScript / Typescript / PHP / Python /Front-End
+            Architecture / UX Design / Design Systems / Interaction Design /
+            Accessibility / Rapid Prototyping / Wire-framing
+         </p>
+      </div>
+      <div class="about__content-exp">
+         <div class="about__content-exp-details">
+            <h1>Experience</h1>
+            <div class="about__content-exp-details-items">
+               {
+                  experience.map((job) => (
+                     <div class="about__content-exp-details-item">
+                        <b>{job.title}</b>
+                        <div class="about__content-exp-details-item-data">
+                           <p>{job.employer}</p>
+                           <p>{job.date}</p>
+                        </div>
+                     </div>
+                  ))
+               }
+            </div>
+         </div>
+         <div class="about__content-exp-details">
+            <h1>Education</h1>
+            <div class="about__content-exp-details-items">
+               {
+                  education.map((job) => (
+                     <div class="about__content-exp-details-item">
+                        <b>{job.title}</b>
+                        <div class="about__content-exp-details-item-data">
+                           <p>{job.employer}</p>
+                           <p>{job.date}</p>
+                        </div>
+                     </div>
+                  ))
+               }
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="about__toolstack">
+      <h1>Tool stack</h1>
+      <div class="about__toolstack-grid">
+         <img src={react.src} />
+         <img src={nextjs.src} />
+         <img src={angular.src} />
+         <img src={node.src} />
+         <img src={storybook.src} />
+         <img src={amplify.src} />
+         <img src={materialui.src} />
+         <img src={vue.src} />
+         <img src={wordpress.src} />
+         <img src={photoshop.src} />
+         <img src={figma.src} />
+         <img src={github.src} />
+         <img src={sketch.src} />
+         <img src={afterEffects.src} />
+         <img src={inVision.src} />
+         <img src={premiere.src} />
+         <img src={bitbucket.src} />
+         <img src={illustrator.src} />
+      </div>
+   </div>
+</section>

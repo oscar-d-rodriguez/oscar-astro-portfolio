@@ -1,0 +1,142 @@
+@import "@styles/mixins.css";
+
+.project-page {
+   padding: 120px 60px;
+   animation: hideThenShow 0.5s ease-in-out forwards;
+   display: flex;
+   flex-direction: column;
+   gap: 70px;
+
+   @mixin screen md {
+      gap: 120px;
+      padding: 180px 60px;
+   }
+
+   &__lead {
+      justify-content: center;
+      gap: 0px;
+      display: flex;
+      flex-direction: column;
+
+      @mixin screen md {
+         flex-direction: row;
+         gap: 130px;
+      }
+
+      & ul {
+         color: #fff;
+         list-style: disc;
+         margin: -1rem 2rem 2rem 2rem;
+         line-height: 1.5rem;
+         letter-spacing: 1px;
+         font-weight: 300;
+
+         & li {
+            margin-bottom: 1rem;
+         }
+      }
+   }
+
+   &__long-description {
+      width: 100%;
+
+      @mixin screen lg {
+         width: 35em;
+      }
+
+      p {
+         color: #f5f5f5;
+         line-height: 2.1;
+         font-size: 18px;
+         letter-spacing: 0.5px;
+         font-weight: 400;
+         padding-bottom: 20px;
+      }
+   }
+
+   &__metadata {
+      line-height: 30px;
+      color: #fff;
+      max-width: 100%;
+
+      @mixin screen md {
+         max-width: 282px;
+         line-height: 36px;
+      }
+
+      & p {
+         margin-bottom: 20px;
+         font-size: 18px;
+         font-weight: 400;
+
+         @mixin screen md {
+            font-size: 22px;
+            font-weight: lighter;
+            margin-bottom: 60px;
+         }
+      }
+
+      & .label {
+         text-transform: uppercase;
+         font-weight: 400;
+         letter-spacing: 4px;
+         margin-bottom: 0px;
+         font-size: 18px;
+
+         @mixin screen md {
+            font-weight: lighter;
+
+            margin-bottom: 10px;
+         }
+      }
+   }
+
+   &__media {
+      & img {
+         width: 100%;
+      }
+   }
+
+   &__asset {
+      margin-bottom: 60px;
+
+      @mixin screen lg {
+         margin-bottom: 120px;
+      }
+   }
+
+   h1 {
+      font-weight: bolder;
+      color: #fff;
+      text-transform: capitalize;
+      font-size: 36px;
+
+      @mixin screen lg {
+         font-size: 46px;
+      }
+
+      letter-spacing: 0;
+      margin-bottom: 60px;
+      letter-spacing: 2px;
+      line-height: 3.5rem;
+   }
+
+   h2 {
+      font-weight: 300;
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 18px;
+      letter-spacing: 0;
+      margin-bottom: 0px;
+      border-top: solid 1px #fff;
+      border-bottom: solid 1px #fff;
+
+      @mixin screen lg {
+         margin-bottom: 3rem;
+      }
+
+      letter-spacing: 2px;
+      line-height: 3.5rem;
+      text-align: center;
+   }
+}
