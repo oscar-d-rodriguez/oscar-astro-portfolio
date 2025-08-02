@@ -22,7 +22,7 @@ body {
    font-style: normal;
    box-sizing: border-box;
    background-color: #1f2228;
-   background-image: url("../../dist/back.jpg");
+   background-image: url("../../public/back.jpg");
    background-size: cover; /* Ensures the image covers the entire area */
    background-repeat: no-repeat; /* Prevents repeating */
    background-position: top; /* Centers the image */
