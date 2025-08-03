@@ -1,6 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Button from "@components/Button/Button.tsx";
+import closeButton from "@assets/close_menu.svg";
 
 import "./project.css";
 
@@ -22,7 +23,7 @@ const response = await fetch(
 );
 if (!response.ok) throw new Error("Failed to fetch project");
 const project = await response.json();
-
+const fieldTo = project.nextProject[0];
 const media = project.media;
 const isImage = (url: string) => /\.(jpg|jpeg|png|gif)$/i.test(url);
 const isVideo = (url: string) => /\.(mp4|mov|webm)$/i.test(url);
@@ -32,11 +33,13 @@ const splitBulletList = (text: string) =>
     .split('•')
     .map(item => item.trim())
     .filter(item => item.length > 0); // ✅ Remove empty items
-
 ---
 
-<Layout>
+<Layout hideMenu={true}>
    <div class="project-page">
+      <a href="/?section=projects" class="project-page__close-project spin-on-hover">
+         <img src={closeButton.src} alt="close project" />
+      </a>
       <div class="project-page__lead">
          <div class="project-page__long-description">
             <h1>{project.name} {project.type ? "-" : ""} {project.type}</h1>
@@ -124,6 +127,20 @@ const splitBulletList = (text: string) =>
                </>
             ))
          }
+      </div>
+      <div class="project-page__next-project-menu">
+         <div>
+            {
+               (fieldTo.prevProjectRoute && fieldTo.prevProjectLabel) && 
+               <Button anchor url={fieldTo.prevProjectRoute} label={fieldTo.prevProjectLabel} /> 
+            }
+         </div>
+         <div></div>
+         <div>
+            {
+               (fieldTo.nextProjectRoute && fieldTo.nextProjectLabel) && 
+               <Button anchor url={fieldTo.nextProjectRoute} label={fieldTo.nextProjectLabel} /> 
+            }
       </div>
    </div>
 </Layout>

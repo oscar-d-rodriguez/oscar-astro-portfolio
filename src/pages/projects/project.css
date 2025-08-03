@@ -1,15 +1,18 @@
 @import "@styles/mixins.css";
 
 .project-page {
-   padding: 120px 60px;
+   padding: 160px 60px 120px;
+   margin-bottom: 120px;
    animation: hideThenShow 0.5s ease-in-out forwards;
    display: flex;
    flex-direction: column;
    gap: 70px;
+   /* border: solid 1px red; */
+   background-color: rgb(0 0 0 / 0.5);
+   position: relative;
 
    @mixin screen md {
       gap: 120px;
-      padding: 180px 60px;
    }
 
    &__lead {
@@ -103,6 +106,38 @@
       @mixin screen lg {
          margin-bottom: 120px;
       }
+
+      &:last-child {
+         margin-bottom: 0;
+      }
+   }
+
+   &__next-project-menu {
+      display: flex;
+      justify-content: space-between;
+   }
+
+   @keyframes spinOnce {
+      from {
+         transform: rotate(0deg);
+      }
+      to {
+         transform: rotate(360deg);
+      }
+   }
+
+   & .spin-on-hover:hover {
+      animation: spinOnce 0.5s ease-in-out;
+   }
+
+   &__close-project {
+      padding: 0px;
+      display: inline-block;
+      width: fit-content;
+      padding: 30px;
+      position: absolute;
+      right: 0;
+      top: 0;
    }
 
    h1 {
@@ -126,17 +161,19 @@
       color: #fff;
       text-transform: uppercase;
       font-size: 18px;
-      letter-spacing: 0;
       margin-bottom: 0px;
-      border-top: solid 1px #fff;
-      border-bottom: solid 1px #fff;
-
-      @mixin screen lg {
-         margin-bottom: 3rem;
-      }
-
-      letter-spacing: 2px;
+      border-top: solid 1px #333;
+      border-bottom: solid 1px #333;
+      letter-spacing: 6px;
       line-height: 3.5rem;
       text-align: center;
+
+      @mixin screen lg {
+         margin-bottom: 2rem;
+      }
+   }
+
+   & .button {
+      text-transform: capitalize;
    }
 }

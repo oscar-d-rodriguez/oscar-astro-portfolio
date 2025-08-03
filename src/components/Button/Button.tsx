@@ -23,7 +23,7 @@ const Button: React.FC<ButtonLinkProps> = ({
    ) : (
       <button
          className={`button ${variant}`}
-         onClick={() => ((window.location.href = url), console.log("sss"))}
+         onClick={() => (window.location.href = url)}
       >
          {label}
       </button>

@@ -7,6 +7,7 @@
    border-radius: 64px;
    padding: 16px 30px;
    text-decoration: none;
+   transition: all 0.3s ease-in-out;
 
    &.secondary {
       border: none;
@@ -17,5 +18,7 @@
 
    &:hover {
       cursor: pointer;
+      color: #fff;
+      border-color: #fff;
    }
 }

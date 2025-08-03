@@ -1,8 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Navigation from "@components/Navigation/Navigation";
-import { SocialNavigation } from "../components/SocialNavigation/SocialNavigation";
 import "./layout.css";
+const { hideMenu } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +25,7 @@ import "./layout.css";
    </head>
    <body>
       <div class="layout">
-         <Navigation client:load />
+         {!hideMenu ? <Navigation client:load /> : null}
          <slot />
       </div>
       <div id="cursor" class="cursor-effect"></div>
