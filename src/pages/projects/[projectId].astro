@@ -132,14 +132,14 @@ const splitBulletList = (text: string) =>
          <div>
             {
                (fieldTo.prevProjectRoute && fieldTo.prevProjectLabel) && 
-               <Button anchor url={fieldTo.prevProjectRoute} label={fieldTo.prevProjectLabel} /> 
+               <Button anchor url={fieldTo.prevProjectRoute} label={"<< Prev "} /> 
             }
          </div>
          <div></div>
          <div>
             {
                (fieldTo.nextProjectRoute && fieldTo.nextProjectLabel) && 
-               <Button anchor url={fieldTo.nextProjectRoute} label={fieldTo.nextProjectLabel} /> 
+               <Button anchor url={fieldTo.nextProjectRoute} label={"Next >>"} /> 
             }
       </div>
    </div>
