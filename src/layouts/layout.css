@@ -23,10 +23,10 @@ body {
    box-sizing: border-box;
    background-color: #1f2228;
    background-image: url("../../public/back.jpg");
-   background-size: cover; /* Ensures the image covers the entire area */
-   background-repeat: no-repeat; /* Prevents repeating */
-   background-position: top; /* Centers the image */
-   background-attachment: fixed; /* Makes the background stay fixed while scrolling */
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: top;
+   background-attachment: fixed;
 }
 
 canvas {

@@ -2,14 +2,11 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Tag } from "@components/Tag/Tag";
 import { motion, AnimatePresence } from "framer-motion";
+import { Pagination } from "swiper/modules";
 
 import "swiper/css/pagination";
 import "swiper/css";
 import "./carousel.css";
-
-import ivr from "@assets/project-ivr/ivr.png";
-import e2e from "@assets/project-e2e-portfolio/e2e-portfolio.png";
-import { Pagination } from "swiper/modules";
 
 interface ProjectTitleProps {
    activeIndex: number;
@@ -28,10 +25,7 @@ interface Projects {
 }
 
 export const Carousel: React.FC<{ data: Projects }> = ({ data }) => {
-   console.log("carousel!!!!!!:", data.projects);
-
    const projectsData = data.projects;
-
    const Contributions: React.FC<ProjectTitleProps> = ({ activeIndex }) => {
       return (
          <AnimatePresence mode="wait">
@@ -43,10 +37,6 @@ export const Carousel: React.FC<{ data: Projects }> = ({ data }) => {
                transition={{ duration: 0.15, ease: "easeInOut" }}
                className="carousel__content"
             >
-               {/* {projectsData[activeIndex].name} */}
-               {/* <motion.p className="carousel__headline">
-                  {projectsData[activeIndex].headline}
-               </motion.p> */}
                <motion.div className="carousel__tags">
                   {projectsData[activeIndex].tags.map((tag, i) => (
                      <Tag tag={tag} key={i} />
@@ -71,9 +61,6 @@ export const Carousel: React.FC<{ data: Projects }> = ({ data }) => {
                <motion.p className="carousel__name">
                   {projectsData[activeIndex].name}
                </motion.p>
-               {/* <motion.p className="carousel__headline">
-                  {projectsData[activeIndex].headline}
-               </motion.p> */}
             </motion.div>
          </AnimatePresence>
       );
