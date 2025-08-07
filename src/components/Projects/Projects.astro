@@ -13,9 +13,9 @@ const projectsData = await allProjects.json();
 <section id="projects" class="projects">
    <div class="projects__banner">
       <h1>PROJECTS</h1>
-      <p class="projects__banner-text">
+      <h2 class="projects__banner-text">
          Some of the most recent projects I've had the pleasure of working on.
-      </p>
+      </h2>
    </div>
    <Grid client:only="react" data={projectsData} />
    <!-- <Carousel client:only="react" data={projectsData} /> -->

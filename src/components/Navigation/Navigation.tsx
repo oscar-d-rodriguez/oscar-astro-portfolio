@@ -22,7 +22,11 @@ export default function Navigation() {
       >
          <div className={`nav__logo${active === "home" ? " active" : ""}`}>
             <a href="/" className="glowing-icon">
-               <img src={ocLogo.src} width="32px" />
+               <img
+                  src={ocLogo.src}
+                  alt="oscar castaneda showcase logo"
+                  width="32px"
+               />
             </a>
          </div>
          <div className="nav__wrapper">
@@ -53,7 +57,10 @@ export default function Navigation() {
             type="button"
             onClick={() => setIsOpen(!isOpen)}
          >
-            <img src={!isOpen ? menuButton.src : closeButton.src} alt="menu" />
+            <img
+               src={!isOpen ? menuButton.src : closeButton.src}
+               alt="navigation menu"
+            />
          </button>
       </nav>
    );
