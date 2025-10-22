@@ -71,8 +71,8 @@ const { hideMenu } = Astro.props;
             const iframeId =
                new URL(location.href).searchParams.get("iframeId") ||
                "iframe-unknown";
+            let lastSentHeight = 0; // local variable
 
-            // Calculate full document height
             function getHeight() {
                const doc = document.documentElement;
                const body = document.body;
@@ -85,60 +85,43 @@ const { hideMenu } = Astro.props;
                );
             }
 
-            // Post height to parent (only if changed)
-            let lastHeight = 0;
             function sendHeight() {
                const h = getHeight();
-               if (h !== lastHeight) {
+               if (h !== lastSentHeight) {
                   window.parent.postMessage(
                      { type: "iframe-height", iframeId, height: h },
                      "*",
                   );
-                  lastHeight = h;
+                  lastSentHeight = h;
                }
             }
 
-            // Continuous observation loop
-            function startHeightLoop() {
+            function sendInitialHeight() {
                sendHeight();
-               requestAnimationFrame(startHeightLoop);
+               setTimeout(sendHeight, 100);
+               setTimeout(sendHeight, 300);
+               setTimeout(sendHeight, 600);
             }
 
-            // Observe dynamic DOM changes
             new ResizeObserver(sendHeight).observe(document.body);
             new MutationObserver(sendHeight).observe(document.body, {
                childList: true,
                subtree: true,
             });
-
-            // Listen for parent requests
             window.addEventListener("message", (e) => {
                if (e.data?.type === "get-height") sendHeight();
             });
-
-            // React to window resize (parent container or CSS changes)
             window.addEventListener("resize", sendHeight);
 
-            // Run on load
-            window.addEventListener("load", () => {
-               sendHeight();
-               setTimeout(sendHeight, 100);
-               setTimeout(sendHeight, 300);
-               startHeightLoop();
-            });
+            window.addEventListener("load", sendInitialHeight);
 
-            // In case document is already loaded
             if (
                document.readyState === "complete" ||
                document.readyState === "interactive"
             ) {
-               setTimeout(() => {
-                  sendHeight();
-                  startHeightLoop();
-               }, 100);
+               setTimeout(sendInitialHeight, 100);
             }
 
-            // Optional: debug
             setInterval(
                () => console.log("[iframe] height", getHeight()),
                1000,
