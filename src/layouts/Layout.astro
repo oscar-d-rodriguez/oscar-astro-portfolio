@@ -68,12 +68,11 @@ const { hideMenu } = Astro.props;
       <canvas id="canvas" width="100%"></canvas>
       <script>
          (function () {
-            // Unique ID for this iframe
             const iframeId =
                new URL(location.href).searchParams.get("iframeId") ||
                "iframe-unknown";
 
-            // Function to calculate full document height
+            // Calculate full document height
             function getHeight() {
                const doc = document.documentElement;
                const body = document.body;
@@ -86,75 +85,75 @@ const { hideMenu } = Astro.props;
                );
             }
 
-            // Send height to parent
+            // Post height to parent
             function sendHeight() {
-               const height = getHeight();
+               const h = getHeight();
                window.parent.postMessage(
-                  { type: "iframe-height", iframeId, height },
+                  { type: "iframe-height", iframeId, height: h },
                   "*",
                );
             }
 
-            // Continuously check height until stable
-            function monitorHeight() {
-               let prevHeight = -1;
-               let attempts = 0;
-               const maxAttempts = 12; // stop after ~1.5s
-               const stableCount = 3; // number of repeated same heights to consider stable
+            // Repeated measurement for slow DOM changes
+            function repeatedHeightCheck() {
+               let lastHeight = -1;
+               let stableCount = 0;
+               const maxAttempts = 12;
+               const stableLimit = 3;
 
                const check = () => {
                   const h = getHeight();
                   sendHeight();
-                  if (h === prevHeight) attempts++;
-                  else attempts = 0;
-                  prevHeight = h;
-                  if (attempts < stableCount && attempts < maxAttempts) {
+                  if (h === lastHeight) stableCount++;
+                  else stableCount = 0;
+                  lastHeight = h;
+                  if (stableCount < stableLimit && stableCount < maxAttempts) {
                      requestAnimationFrame(() => setTimeout(check, 120));
                   }
                };
+
                check();
             }
 
-            // Observe dynamic changes in DOM
-            const resizeObserver = new ResizeObserver(() => sendHeight());
-            resizeObserver.observe(document.body);
+            // Initial load + retries
+            function initHeight() {
+               repeatedHeightCheck();
+               setTimeout(repeatedHeightCheck, 300);
+               setTimeout(repeatedHeightCheck, 600);
+               setTimeout(repeatedHeightCheck, 1000);
+            }
 
-            const mutationObserver = new MutationObserver(() => sendHeight());
-            mutationObserver.observe(document.body, {
+            // Observe dynamic DOM changes
+            new ResizeObserver(sendHeight).observe(document.body);
+            new MutationObserver(sendHeight).observe(document.body, {
                childList: true,
                subtree: true,
             });
 
-            // Send height on load, with retries to ensure parent listener exists
-            function onLoad() {
-               monitorHeight();
-               setTimeout(monitorHeight, 300);
-               setTimeout(monitorHeight, 600);
-               setTimeout(monitorHeight, 1000);
-            }
-
-            window.addEventListener("load", () => setTimeout(onLoad, 300));
-
-            // Listen for parent requesting height (optional)
-            window.addEventListener("message", (event) => {
-               if (event.data?.type === "get-height") {
-                  sendHeight();
-               }
+            // Listen for parent requesting height
+            window.addEventListener("message", (e) => {
+               if (e.data?.type === "get-height") sendHeight();
             });
 
-            // Optional: log height periodically for debugging
-            setInterval(
-               () => console.log("[iframe] height", getHeight()),
-               1000,
-            );
+            // React to window resize (e.g., CSS/layout changes)
+            window.addEventListener("resize", sendHeight);
 
-            // If document already loaded, trigger immediately
+            // Run on load
+            window.addEventListener("load", () => setTimeout(initHeight, 300));
+
+            // In case document is already loaded
             if (
                document.readyState === "complete" ||
                document.readyState === "interactive"
             ) {
-               setTimeout(onLoad, 300);
+               setTimeout(initHeight, 300);
             }
+
+            // Debugging
+            setInterval(
+               () => console.log("[iframe] height", getHeight()),
+               1000,
+            );
          })();
       </script>
    </body>
