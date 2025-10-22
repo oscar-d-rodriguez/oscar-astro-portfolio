@@ -1,0 +1,31 @@
+@import "@styles/mixins.css";
+body {
+   margin: 0;
+   font-family: sans-serif;
+}
+.content {
+   padding: 20px;
+   max-width: 1220px;
+   margin: 0 auto;
+   border: solid 1px blue;
+}
+.box {
+   background-color: #cce5ff;
+   margin-bottom: 40px;
+   padding: 80px;
+   border-radius: 8px;
+}
+
+@mixin screen sm {
+   .box {
+      padding: 40px;
+      margin-bottom: 10px;
+   }
+}
+
+@mixin screen md {
+   .box {
+      padding: 20px;
+      margin-bottom: 20px;
+   }
+}

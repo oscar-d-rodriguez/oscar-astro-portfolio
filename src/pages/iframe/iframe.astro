@@ -1,0 +1,111 @@
+---
+import Navigation from "@components/Navigation/Navigation";
+import "./iframe.css";
+
+const hideMenu = true;
+---
+
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Responsive Iframe Demo</title>
+      <link rel="icon" href="/favicon.svg" />
+   </head>
+   <body>
+      <div class="layout">
+         {!hideMenu ? <Navigation client:load /> : null}
+         <div class="content">
+            <h1>Iframe Content</h1>
+            <div class="box">Box 1</div>
+            <div class="box">Box 2</div>
+            <div class="box">Box 3</div>
+            <div class="box">Box 4</div>
+            <div class="box">Box 5</div>
+            <div class="box">Box 6</div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+         </div>
+      </div>
+
+      <script is:inline>
+         (function () {
+            const iframeId =
+               new URL(location.href).searchParams.get("iframeId") ||
+               "iframe-unknown";
+
+            function getHeight() {
+               const doc = document.documentElement;
+               const body = document.body;
+               return Math.max(
+                  body.scrollHeight,
+                  body.offsetHeight,
+                  doc.clientHeight,
+                  doc.scrollHeight,
+                  doc.offsetHeight,
+               );
+            }
+
+            function sendHeight() {
+               const height = getHeight();
+               window.parent.postMessage(
+                  { type: "iframe-height", iframeId, height },
+                  "*",
+               );
+            }
+
+            function monitorHeight() {
+               let prevHeight = -1;
+               let attempts = 0;
+               const maxAttempts = 12;
+               const stableCount = 3;
+
+               const check = () => {
+                  const h = getHeight();
+                  sendHeight();
+                  if (h === prevHeight) attempts++;
+                  else attempts = 0;
+                  prevHeight = h;
+                  if (attempts < stableCount && attempts < maxAttempts) {
+                     requestAnimationFrame(() => setTimeout(check, 120));
+                  }
+               };
+               check();
+            }
+
+            const resizeObserver = new ResizeObserver(() => sendHeight());
+            resizeObserver.observe(document.body);
+
+            const mutationObserver = new MutationObserver(() => sendHeight());
+            mutationObserver.observe(document.body, {
+               childList: true,
+               subtree: true,
+            });
+
+            function onLoad() {
+               monitorHeight();
+               setTimeout(monitorHeight, 300);
+               setTimeout(monitorHeight, 600);
+               setTimeout(monitorHeight, 1000);
+            }
+
+            window.addEventListener("load", () => setTimeout(onLoad, 300));
+            window.addEventListener("message", (event) => {
+               if (event.data?.type === "get-height") sendHeight();
+            });
+
+            if (
+               document.readyState === "complete" ||
+               document.readyState === "interactive"
+            ) {
+               setTimeout(onLoad, 300);
+            }
+
+            setInterval(
+               () => console.log("[iframe] height", getHeight()),
+               1000,
+            );
+         })();
+      </script>
+   </body>
+</html>
