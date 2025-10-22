@@ -67,34 +67,94 @@ const { hideMenu } = Astro.props;
       <div id="cursor" class="cursor-effect"></div>
       <canvas id="canvas" width="100%"></canvas>
       <script>
-         function sendHeight() {
-            const height = document.documentElement.scrollHeight;
-            window.parent.postMessage({ type: "iframe-height", height }, "*");
-         }
+         (function () {
+            const IFRAME_ID =
+               new URL(location.href).searchParams.get("iframeId") ||
+               "iframe-unknown";
 
-         window.addEventListener("load", () => {
-            requestAnimationFrame(() => {
-               sendHeight();
-               setTimeout(sendHeight, 1000);
-            });
-         });
+            function computeHeight() {
+               const doc = document.documentElement;
+               const body = document.body;
 
-         window.addEventListener("resize", sendHeight);
-         new ResizeObserver(sendHeight).observe(document.body);
-         new MutationObserver(sendHeight).observe(document.body, {
-            childList: true,
-            subtree: true,
-         });
+               return Math.max(
+                  body.scrollHeight,
+                  body.offsetHeight,
+                  doc.clientHeight,
+                  doc.scrollHeight,
+                  doc.offsetHeight,
+               );
+            }
 
-         const addButton = document.getElementById("add");
-         if (addButton) {
-            addButton.addEventListener("click", () => {
-               const p = document.createElement("p");
-               p.textContent = "More content added...";
-               document.body.appendChild(p);
-               sendHeight();
-            });
-         }
+            function post(h) {
+               window.parent.postMessage(
+                  { type: "iframe-height", iframeId: IFRAME_ID, height: h },
+                  "*", // replace with exact origin in production
+               );
+            }
+
+            // send until stable: send up to maxTries times or until value repeats stableCount times
+            function sendUntilStable() {
+               let last = -1;
+               let stable = 0;
+               const stableNeeded = 3;
+               const maxTries = 12;
+               let tries = 0;
+
+               const tick = () => {
+                  const h = computeHeight();
+                  post(h);
+
+                  if (h === last) {
+                     stable++;
+                  } else {
+                     stable = 0;
+                  }
+                  last = h;
+                  tries++;
+
+                  if (stable >= stableNeeded || tries >= maxTries) {
+                     // stop
+                     return;
+                  }
+                  // schedule next check after next frame + small timeout to catch images/fonts
+                  requestAnimationFrame(() => setTimeout(tick, 120));
+               };
+
+               tick();
+            }
+
+            function sendOnLoadSettled() {
+               requestAnimationFrame(() => {
+                  // immediate send + a delayed send to catch late content
+                  sendUntilStable();
+                  setTimeout(sendUntilStable, 350);
+               });
+            }
+
+            // Observers for dynamic changes
+            const ro = new ResizeObserver(() => post(computeHeight()));
+            ro.observe(document.body);
+
+            const mo = new MutationObserver(() => post(computeHeight()));
+            mo.observe(document.body, { childList: true, subtree: true });
+
+            window.addEventListener("load", sendOnLoadSettled);
+            window.addEventListener("resize", () => post(computeHeight()));
+
+            // If script injected after load, still trigger a measurement
+            if (
+               document.readyState === "complete" ||
+               document.readyState === "interactive"
+            ) {
+               sendOnLoadSettled();
+            }
+
+            // Debugging helper (comment out in production)
+            setInterval(
+               () => console.log("[iframe] height", computeHeight()),
+               1000,
+            );
+         })();
       </script>
    </body>
 </html>
