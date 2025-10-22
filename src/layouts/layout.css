@@ -28,7 +28,7 @@ body {
    background-position: top;
    background-attachment: fixed;
 }
-
+/* 
 canvas {
    z-index: -2;
    position: fixed;
@@ -43,7 +43,7 @@ canvas {
    max-width: 1440px;
    margin: 0 auto;
    position: relative;
-}
+} */
 
 footer {
    color: #fff;
