@@ -79,6 +79,7 @@ const { hideMenu } = Astro.props;
             });
          });
 
+         window.addEventListener("resize", sendHeight);
          new ResizeObserver(sendHeight).observe(document.body);
          new MutationObserver(sendHeight).observe(document.body, {
             childList: true,
