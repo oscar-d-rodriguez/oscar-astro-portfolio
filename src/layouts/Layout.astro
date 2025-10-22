@@ -68,11 +68,12 @@ const { hideMenu } = Astro.props;
       <!-- <canvas id="canvas" width="100%"></canvas> -->
       <script>
          (function () {
+            // Unique ID for this iframe
             const iframeId =
                new URL(location.href).searchParams.get("iframeId") ||
                "iframe-unknown";
-            let lastSentHeight = 0; // local variable
 
+            // Function to calculate full document height
             function getHeight() {
                const doc = document.documentElement;
                const body = document.body;
@@ -85,47 +86,75 @@ const { hideMenu } = Astro.props;
                );
             }
 
+            // Send height to parent
             function sendHeight() {
-               const h = getHeight();
-               if (h !== lastSentHeight) {
-                  window.parent.postMessage(
-                     { type: "iframe-height", iframeId, height: h },
-                     "*",
-                  );
-                  lastSentHeight = h;
-               }
+               const height = getHeight();
+               window.parent.postMessage(
+                  { type: "iframe-height", iframeId, height },
+                  "*",
+               );
             }
 
-            function sendInitialHeight() {
-               sendHeight();
-               setTimeout(sendHeight, 100);
-               setTimeout(sendHeight, 300);
-               setTimeout(sendHeight, 600);
+            // Continuously check height until stable
+            function monitorHeight() {
+               let prevHeight = -1;
+               let attempts = 0;
+               const maxAttempts = 12; // stop after ~1.5s
+               const stableCount = 3; // number of repeated same heights to consider stable
+
+               const check = () => {
+                  const h = getHeight();
+                  sendHeight();
+                  if (h === prevHeight) attempts++;
+                  else attempts = 0;
+                  prevHeight = h;
+                  if (attempts < stableCount && attempts < maxAttempts) {
+                     requestAnimationFrame(() => setTimeout(check, 120));
+                  }
+               };
+               check();
             }
 
-            new ResizeObserver(sendHeight).observe(document.body);
-            new MutationObserver(sendHeight).observe(document.body, {
+            // Observe dynamic changes in DOM
+            const resizeObserver = new ResizeObserver(() => sendHeight());
+            resizeObserver.observe(document.body);
+
+            const mutationObserver = new MutationObserver(() => sendHeight());
+            mutationObserver.observe(document.body, {
                childList: true,
                subtree: true,
             });
-            window.addEventListener("message", (e) => {
-               if (e.data?.type === "get-height") sendHeight();
-            });
-            window.addEventListener("resize", sendHeight);
 
-            window.addEventListener("load", sendInitialHeight);
-
-            if (
-               document.readyState === "complete" ||
-               document.readyState === "interactive"
-            ) {
-               setTimeout(sendInitialHeight, 300);
+            // Send height on load, with retries to ensure parent listener exists
+            function onLoad() {
+               monitorHeight();
+               setTimeout(monitorHeight, 300);
+               setTimeout(monitorHeight, 600);
+               setTimeout(monitorHeight, 1000);
             }
 
+            window.addEventListener("load", () => setTimeout(onLoad, 300));
+
+            // Listen for parent requesting height (optional)
+            window.addEventListener("message", (event) => {
+               if (event.data?.type === "get-height") {
+                  sendHeight();
+               }
+            });
+
+            // Optional: log height periodically for debugging
             setInterval(
                () => console.log("[iframe] height", getHeight()),
                1000,
             );
+
+            // If document already loaded, trigger immediately
+            if (
+               document.readyState === "complete" ||
+               document.readyState === "interactive"
+            ) {
+               setTimeout(onLoad, 300);
+            }
          })();
       </script>
    </body>
