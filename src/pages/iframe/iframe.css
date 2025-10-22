@@ -15,7 +15,17 @@ body {
    padding: 80px;
    border-radius: 8px;
 }
-
+#extraContent {
+   background-color: #e2f0ff;
+   padding: 20px;
+   border-radius: 8px;
+   margin-top: 20px;
+}
+button {
+   padding: 10px 20px;
+   margin-bottom: 20px;
+   cursor: pointer;
+}
 @mixin screen sm {
    .box {
       padding: 40px;

@@ -24,11 +24,29 @@ const hideMenu = true;
             <div class="box">Box 4</div>
             <div class="box">Box 5</div>
             <div class="box">Box 6</div>
+            <button id="expandButton">Show/Hide Content</button>
+            <div id="extraContent">
+               <div class="box">Extra Box 1</div>
+               <div class="box">Extra Box 2</div>
+               <p>More text to increase the iframe height dynamically.</p>
+            </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
          </div>
       </div>
 
       <script is:inline>
+         // Toggle extra content on button click
+         const expandButton = document.getElementById("expandButton");
+         const extraContent = document.getElementById("extraContent");
+
+         expandButton.addEventListener("click", () => {
+            if (extraContent.style.display === "none") {
+               extraContent.style.display = "block";
+            } else {
+               extraContent.style.display = "none";
+            }
+         });
+
          (function () {
             const iframeId =
                new URL(location.href).searchParams.get("iframeId") ||
@@ -100,11 +118,6 @@ const hideMenu = true;
             ) {
                setTimeout(onLoad, 300);
             }
-
-            setInterval(
-               () => console.log("[iframe] height", getHeight()),
-               1000,
-            );
          })();
       </script>
    </body>
