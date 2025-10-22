@@ -85,42 +85,23 @@ const { hideMenu } = Astro.props;
                );
             }
 
-            // Post height to parent
+            // Post height to parent (only if changed)
+            let lastHeight = 0;
             function sendHeight() {
                const h = getHeight();
-               window.parent.postMessage(
-                  { type: "iframe-height", iframeId, height: h },
-                  "*",
-               );
-            }
-
-            // Repeated measurement for slow DOM changes
-            function repeatedHeightCheck() {
-               let lastHeight = -1;
-               let stableCount = 0;
-               const maxAttempts = 12;
-               const stableLimit = 3;
-
-               const check = () => {
-                  const h = getHeight();
-                  sendHeight();
-                  if (h === lastHeight) stableCount++;
-                  else stableCount = 0;
+               if (h !== lastHeight) {
+                  window.parent.postMessage(
+                     { type: "iframe-height", iframeId, height: h },
+                     "*",
+                  );
                   lastHeight = h;
-                  if (stableCount < stableLimit && stableCount < maxAttempts) {
-                     requestAnimationFrame(() => setTimeout(check, 120));
-                  }
-               };
-
-               check();
+               }
             }
 
-            // Initial load + retries
-            function initHeight() {
-               repeatedHeightCheck();
-               setTimeout(repeatedHeightCheck, 300);
-               setTimeout(repeatedHeightCheck, 600);
-               setTimeout(repeatedHeightCheck, 1000);
+            // Continuous observation loop
+            function startHeightLoop() {
+               sendHeight();
+               requestAnimationFrame(startHeightLoop);
             }
 
             // Observe dynamic DOM changes
@@ -130,26 +111,34 @@ const { hideMenu } = Astro.props;
                subtree: true,
             });
 
-            // Listen for parent requesting height
+            // Listen for parent requests
             window.addEventListener("message", (e) => {
                if (e.data?.type === "get-height") sendHeight();
             });
 
-            // React to window resize (e.g., CSS/layout changes)
+            // React to window resize (parent container or CSS changes)
             window.addEventListener("resize", sendHeight);
 
             // Run on load
-            window.addEventListener("load", () => setTimeout(initHeight, 300));
+            window.addEventListener("load", () => {
+               sendHeight();
+               setTimeout(sendHeight, 100);
+               setTimeout(sendHeight, 300);
+               startHeightLoop();
+            });
 
             // In case document is already loaded
             if (
                document.readyState === "complete" ||
                document.readyState === "interactive"
             ) {
-               setTimeout(initHeight, 300);
+               setTimeout(() => {
+                  sendHeight();
+                  startHeightLoop();
+               }, 100);
             }
 
-            // Debugging
+            // Optional: debug
             setInterval(
                () => console.log("[iframe] height", getHeight()),
                1000,
