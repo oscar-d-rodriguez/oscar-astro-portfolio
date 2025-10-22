@@ -39,47 +39,85 @@ const hideMenu = true;
          const expandButton = document.getElementById("expandButton");
          const extraContent = document.getElementById("extraContent");
 
+         expandButton.addEventListener("click", () => {
+            if (extraContent.style.display === "none") {
+               extraContent.style.display = "block";
+            } else {
+               extraContent.style.display = "none";
+            }
+         });
+
          (function () {
             const iframeId =
                new URL(location.href).searchParams.get("iframeId") ||
                "iframe-unknown";
-            let lastHeight = 0;
 
-            function sendHeight() {
-               // Force layout calculation first
-               document.body.offsetHeight;
-
-               const height = Math.max(
-                  document.body.scrollHeight,
-                  document.body.offsetHeight,
-                  document.documentElement.scrollHeight,
+            function getHeight() {
+               const doc = document.documentElement;
+               const body = document.body;
+               return Math.max(
+                  body.scrollHeight,
+                  body.offsetHeight,
+                  doc.clientHeight,
+                  doc.scrollHeight,
+                  doc.offsetHeight,
                );
-
-               if (height !== lastHeight) {
-                  window.parent.postMessage(
-                     {
-                        type: "iframe-height",
-                        iframeId,
-                        height,
-                     },
-                     "*",
-                  );
-                  lastHeight = height;
-               }
             }
 
-            // Send height on resize and load
-            window.addEventListener("resize", sendHeight, { passive: true });
-            window.addEventListener("load", sendHeight, { passive: true });
+            function sendHeight() {
+               const height = getHeight();
+               window.parent.postMessage(
+                  { type: "iframe-height", iframeId, height },
+                  "*",
+               );
+            }
 
-            // Initial send
-            sendHeight();
+            function monitorHeight() {
+               let prevHeight = -1;
+               let attempts = 0;
+               const maxAttempts = 12;
+               const stableCount = 3;
 
-            // Cleanup on unload
-            window.addEventListener("beforeunload", () => {
-               window.removeEventListener("resize", sendHeight);
-               window.removeEventListener("load", sendHeight);
+               const check = () => {
+                  const h = getHeight();
+                  sendHeight();
+                  if (h === prevHeight) attempts++;
+                  else attempts = 0;
+                  prevHeight = h;
+                  if (attempts < stableCount && attempts < maxAttempts) {
+                     requestAnimationFrame(() => setTimeout(check, 120));
+                  }
+               };
+               check();
+            }
+
+            const resizeObserver = new ResizeObserver(() => sendHeight());
+            resizeObserver.observe(document.body);
+
+            const mutationObserver = new MutationObserver(() => sendHeight());
+            mutationObserver.observe(document.body, {
+               childList: true,
+               subtree: true,
             });
+
+            function onLoad() {
+               monitorHeight();
+               setTimeout(monitorHeight, 300);
+               setTimeout(monitorHeight, 600);
+               setTimeout(monitorHeight, 1000);
+            }
+
+            window.addEventListener("load", () => setTimeout(onLoad, 300));
+            window.addEventListener("message", (event) => {
+               if (event.data?.type === "get-height") sendHeight();
+            });
+
+            if (
+               document.readyState === "complete" ||
+               document.readyState === "interactive"
+            ) {
+               setTimeout(onLoad, 300);
+            }
          })();
       </script>
    </body>
