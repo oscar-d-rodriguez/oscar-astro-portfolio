@@ -47,78 +47,49 @@ const hideMenu = true;
             }
          });
 
-         (function () {
-            const iframeId =
-               new URL(location.href).searchParams.get("iframeId") ||
-               "iframe-unknown";
+         // Get iframe ID from URL
+         const iframeId =
+            new URL(location.href).searchParams.get("iframeId") ||
+            "iframe-unknown";
+         let lastHeight = 0;
 
-            function getHeight() {
-               const doc = document.documentElement;
-               const body = document.body;
-               return Math.max(
-                  body.scrollHeight,
-                  body.offsetHeight,
-                  doc.clientHeight,
-                  doc.scrollHeight,
-                  doc.offsetHeight,
-               );
-            }
+         // Height sending function
+         function sendHeight() {
+            // Force immediate layout recalculation
+            document.body.getBoundingClientRect();
 
-            function sendHeight() {
-               const height = getHeight();
+            const height = document.body.scrollHeight;
+
+            if (height !== lastHeight) {
                window.parent.postMessage(
-                  { type: "iframe-height", iframeId, height },
+                  {
+                     type: "iframe-height",
+                     iframeId,
+                     height,
+                  },
                   "*",
                );
+               lastHeight = height;
             }
+         }
 
-            function monitorHeight() {
-               let prevHeight = -1;
-               let attempts = 0;
-               const maxAttempts = 12;
-               const stableCount = 3;
+         // MutationObserver for immediate detection
+         const observer = new MutationObserver(() => {
+            sendHeight();
+         });
+         observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["style"],
+         });
 
-               const check = () => {
-                  const h = getHeight();
-                  sendHeight();
-                  if (h === prevHeight) attempts++;
-                  else attempts = 0;
-                  prevHeight = h;
-                  if (attempts < stableCount && attempts < maxAttempts) {
-                     requestAnimationFrame(() => setTimeout(check, 120));
-                  }
-               };
-               check();
-            }
+         // Event listeners
+         window.addEventListener("resize", sendHeight, { passive: true });
+         window.addEventListener("load", sendHeight, { passive: true });
 
-            const resizeObserver = new ResizeObserver(() => sendHeight());
-            resizeObserver.observe(document.body);
-
-            const mutationObserver = new MutationObserver(() => sendHeight());
-            mutationObserver.observe(document.body, {
-               childList: true,
-               subtree: true,
-            });
-
-            function onLoad() {
-               monitorHeight();
-               setTimeout(monitorHeight, 300);
-               setTimeout(monitorHeight, 600);
-               setTimeout(monitorHeight, 1000);
-            }
-
-            window.addEventListener("load", () => setTimeout(onLoad, 300));
-            window.addEventListener("message", (event) => {
-               if (event.data?.type === "get-height") sendHeight();
-            });
-
-            if (
-               document.readyState === "complete" ||
-               document.readyState === "interactive"
-            ) {
-               setTimeout(onLoad, 300);
-            }
-         })();
+         // Initial height send
+         sendHeight();
       </script>
    </body>
 </html>
