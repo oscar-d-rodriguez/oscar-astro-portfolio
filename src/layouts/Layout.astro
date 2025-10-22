@@ -66,5 +66,28 @@ const { hideMenu } = Astro.props;
       </div>
       <div id="cursor" class="cursor-effect"></div>
       <canvas id="canvas" width="100%"></canvas>
+      <script>
+         function sendHeight() {
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage({ type: "iframe-height", height }, "*");
+         }
+
+         window.addEventListener("load", sendHeight);
+         new ResizeObserver(sendHeight).observe(document.body);
+         new MutationObserver(sendHeight).observe(document.body, {
+            childList: true,
+            subtree: true,
+         });
+
+         const addButton = document.getElementById("add");
+         if (addButton) {
+            addButton.addEventListener("click", () => {
+               const p = document.createElement("p");
+               p.textContent = "More content added...";
+               document.body.appendChild(p);
+               sendHeight();
+            });
+         }
+      </script>
    </body>
 </html>
