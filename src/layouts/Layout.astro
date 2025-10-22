@@ -72,7 +72,13 @@ const { hideMenu } = Astro.props;
             window.parent.postMessage({ type: "iframe-height", height }, "*");
          }
 
-         window.addEventListener("load", sendHeight);
+         window.addEventListener("load", () => {
+            requestAnimationFrame(() => {
+               sendHeight();
+               setTimeout(sendHeight, 300);
+            });
+         });
+
          new ResizeObserver(sendHeight).observe(document.body);
          new MutationObserver(sendHeight).observe(document.body, {
             childList: true,
