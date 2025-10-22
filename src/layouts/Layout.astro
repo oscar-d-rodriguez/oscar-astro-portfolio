@@ -91,24 +91,22 @@ const { hideMenu } = Astro.props;
                );
             }
 
-            // Initial height on load with small retries
+            // On load, send height multiple times to ensure parent listener receives it
             window.addEventListener("load", () => {
                sendHeight();
-               setTimeout(sendHeight, 300);
+               setTimeout(sendHeight, 200);
+               setTimeout(sendHeight, 400);
                setTimeout(sendHeight, 600);
             });
 
-            // Update height on dynamic content changes
+            // Observe DOM changes
             new ResizeObserver(sendHeight).observe(document.body);
             new MutationObserver(sendHeight).observe(document.body, {
                childList: true,
                subtree: true,
             });
 
-            // Update height on window resize
-            window.addEventListener("resize", sendHeight);
-
-            // Optional: respond to parent requests
+            // Respond to parent requests
             window.addEventListener("message", (e) => {
                if (e.data?.type === "get-height") sendHeight();
             });
