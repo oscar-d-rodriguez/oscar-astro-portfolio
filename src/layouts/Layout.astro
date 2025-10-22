@@ -67,6 +67,8 @@ const { hideMenu } = Astro.props;
       <div id="cursor" class="cursor-effect"></div>
       <canvas id="canvas" width="100%"></canvas>
       <script>
+         import { set } from "astro:schema";
+
          (function () {
             const IFRAME_ID =
                new URL(location.href).searchParams.get("iframeId") ||
@@ -138,7 +140,9 @@ const { hideMenu } = Astro.props;
             const mo = new MutationObserver(() => post(computeHeight()));
             mo.observe(document.body, { childList: true, subtree: true });
 
-            window.addEventListener("load", sendOnLoadSettled);
+            window.addEventListener("load", () => {
+               setTimeout(sendOnLoadSettled, 500);
+            });
             window.addEventListener("resize", () => post(computeHeight()));
 
             // If script injected after load, still trigger a measurement
